@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css3 var()</title>
+    <style>
+        /* 全局中设置使用，类似于全局变量 */
+        :root {
+            --bg-color: #0f0;
+            --text-color: #f00;
+            --wrapper-width: 1000px;
+        }
+
+
+        .box-1 {
+            /* 直接使用 */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+
+            /* 使用calc计算属性 */
+            width: calc(var(--wrapper-width) / 2);
+
+            /* 后备值 或 回退值 */
+            /* 此时root-font-size没有被定义，此时回退到后备值20px */
+            font-size: var(--root-font-size, 20px);
+        }
+
+        .box-1:hover {
+            /* 可以覆盖 */
+            --bg-color: #00f;
+        }
+
+        /* 也可以在父元素中设置，在子元素中调用，类似于局部变量 */
+        .box-2 {
+            --box-2-bg-color: #ff0;
+        }
+
+        .box-2 .box-2-1 {
+            /* 可以使用 */
+            background-color: var(--box-2-bg-color);
+        }
+
+        .box-3 {
+            /* 不能使用 */
+            background-color: var(--box-2-bg-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box-1">var()</div>
+    <div class="box-2">
+        <div class="box-2-1">var()-1</div>
+    </div>
+    <div class="box-3">var()</div>
+</body>
+
+</html>
